@@ -54,6 +54,7 @@ const user = {
         })
       })
     },
+
     // 登出
     LogOut({ commit }) {
       return new Promise((resolve, reject) => {

@@ -14,6 +14,8 @@
                   v-model="show"
                   :headers="headers"
                   :url="updateAvatarApi"
+                  :width="120"
+                  :height="120"
                   @crop-upload-success="cropUploadSuccess"
                 />
               </div>

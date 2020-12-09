@@ -22,22 +22,22 @@
 
       </template>
 
-      <el-dropdown class="avatar-container right-menu-item hover-effect" trigger="click">
+      <el-dropdown class="avatar-container right-menu-item hover-effect" trigger="hover">
         <div class="avatar-wrapper">
           <img :src="user.avatarName ? baseApi + '/avatar/' + user.avatarName : Avatar" class="user-avatar">
           <i class="el-icon-caret-bottom" />
         </div>
         <el-dropdown-menu slot="dropdown">
-          <span style="display:block;" @click="show = true">
-            <el-dropdown-item>
-              布局设置
-            </el-dropdown-item>
-          </span>
           <router-link to="/user/center">
             <el-dropdown-item>
               个人中心
             </el-dropdown-item>
           </router-link>
+          <span style="display:block;" @click="show = true">
+            <el-dropdown-item divided>
+              布局设置
+            </el-dropdown-item>
+          </span>
           <span style="display:block;" @click="open">
             <el-dropdown-item divided>
               退出登录
