@@ -60,9 +60,22 @@ export const constantRouterMap = [
   }
 ]
 
+const dealLocation = () => {
+  if (window.location.pathname.split('/')[1] === '') {
+    return 'index'
+  } else if (window.location.pathname.split('/')[1] === 'login') {
+    window.location.href = '/index/login'
+    return 'index'
+  } else {
+    return window.location.pathname.split('/')[1]
+  }
+}
+
 export default new Router({
   // mode: 'hash',
   mode: 'history',
+  base: '/' + dealLocation(),
   scrollBehavior: () => ({ y: 0 }),
   routes: constantRouterMap
 })
+

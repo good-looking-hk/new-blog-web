@@ -113,7 +113,7 @@
 </template>
 
 <script>
-import crudSysBlog from '@/api/sysBlog'
+import crudSysBlog from '@/api/blog'
 import CRUD, { presenter, header, form, crud } from '@crud/crud'
 import rrOperation from '@crud/RR.operation'
 import crudOperation from '@crud/CRUD.operation'
@@ -122,12 +122,12 @@ import pagination from '@crud/Pagination'
 
 const defaultForm = { id: null, dir: null, title: null, fileName: null, userId: null, blogType: null, createTime: null, lastUploadTime: null, orderNum: null, viewCount: null, yesterdayView: null, characterCount: null, status: null, updateTime: null }
 export default {
-  name: 'SysBlog',
+  name: 'Blog',
   components: { pagination, crudOperation, rrOperation, udOperation },
   mixins: [presenter(), header(), form(defaultForm), crud()],
   dicts: ['blog_type', 'blog_status'],
   cruds() {
-    return CRUD({ title: '博客', url: 'api/sysBlog', idField: 'id', sort: 'id,desc', crudMethod: { ...crudSysBlog }})
+    return CRUD({ title: '博客', url: 'api/blog', idField: 'id', sort: 'id,desc', crudMethod: { ...crudSysBlog }})
   },
   data() {
     return {
