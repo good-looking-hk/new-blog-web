@@ -20,6 +20,7 @@ router.beforeEach((to, from, next) => {
     // 已登录且要跳转的页面是登录页
     if (to.path === '/login') {
       next({ path: '/' })
+      // next()
       NProgress.done()
     } else {
       if (store.getters.roles.length === 0) { // 判断当前用户是否已拉取完user_info信息

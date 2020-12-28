@@ -2,8 +2,8 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@": ["./src/"],
-      "@/*": ["./src/*"]
+      "@": ["./src/modules/index"],
+      "@/*": ["./src/modules/index/*"]
     }
   },
   "exclude": ["node_modules", "dist", "build", "config", "static", "dic"],
