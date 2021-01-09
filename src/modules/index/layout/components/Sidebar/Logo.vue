@@ -25,7 +25,7 @@ export default {
   },
   data() {
     return {
-      title: 'ELADMIN-后台管理',
+      title: '小葵博客管理后台',
       logo: Logo
     }
   }
