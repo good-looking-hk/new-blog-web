@@ -4,7 +4,7 @@
     <div class="head-container">
       <aside>
         1 强烈建议新手初次使用时，查看 <a href="#">帮助文档</a>，了解一些细节上的约定，以方便您更好的使用<br>
-        2 .md文件命名形如 Spring源码:架构概览-1-20201122，即格式形为 目录:标题-序号-创建日期 <br>
+        2 markdown文件命名形如 Spring源码:架构概览-1-20201122，即格式形为 目录:标题-序号-创建日期 <br>
         3 为保证.md文件的一致性，暂不开放在线编辑，以本地为准，推荐将文档保存到svn/git中，便于管理与追踪 <br>
         4 文章有效字数 = 中文字数 + 英文单词数
       </aside>
@@ -19,8 +19,8 @@
         :before-remove="beforeRemove"
         multiple
         :headers="uploadHeader"
+        :data="uploadData"
         :limit="100"
-        :on-exceed="handleExceed"
         :auto-upload="false"
         :file-list="fileList"
       >
@@ -41,6 +41,11 @@
       <el-table-column :show-overflow-tooltip="true" label="大小" prop="size">
         <template slot-scope="scope">
           {{ (scope.row.size / 1024).toFixed(2) + 'kb' }}
+        </template>
+      </el-table-column>
+      <el-table-column :show-overflow-tooltip="true" label="文件修改时间" width="220px" prop="lastModified">
+        <template slot-scope="scope">
+          {{ new Date(scope.row.raw.lastModified).toLocaleString() }}
         </template>
       </el-table-column>
       <el-table-column :show-overflow-tooltip="true" label="目录" prop="response.dir" />
@@ -95,6 +100,9 @@ export default {
       fileList: [],
       uploadHeader: {
         Authorization: getToken()
+      },
+      uploadData: {
+        lastModified: 0
       }
     }
   },
@@ -108,6 +116,7 @@ export default {
         this.$message.error('文件大小不能超过10M')
         return false
       }
+      this.uploadData.lastModified = file.lastModified
       return true
     },
     uploadSuccess(res, file) {
@@ -116,6 +125,7 @@ export default {
       this.$message.error(JSON.parse(err.message).message)
     },
     fileChange(file, fileList) {
+      console.info(fileList)
       this.fileList = Object.assign([], fileList)
     },
     _pre_view(row) {
@@ -144,6 +154,7 @@ export default {
         obj.name = e.name
         obj.orderNum = e.orderNum
         obj.createDate = e.createDate
+        obj.lastModified = e.lastModified
         obj.chineseCount = e.wordCounter.chineseCount
         obj.englishCount = e.wordCounter.englishCount
         obj.numberCount = e.wordCounter.numberCount
@@ -173,10 +184,6 @@ export default {
       }
     },
     handlePreview(file) {
-      console.error(file)
-    },
-    handleExceed(files, fileList) {
-      this.$message.warning(`当前限制选择 3 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`)
     },
     beforeRemove(file, fileList) {
       // return this.$confirm(`确定移除 ${file.name}？`)
